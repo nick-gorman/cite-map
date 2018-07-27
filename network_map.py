@@ -4,7 +4,7 @@ from bokeh.models import Plot, Range1d, MultiLine, Circle, ColumnDataSource, Lab
 from bokeh.models.graphs import from_networkx, NodesAndLinkedEdges, EdgesAndLinkedNodes
 
 
-def create_cit_map(nodes, edges, years):
+def create_cit_map(nodes, edges, years, authors_and_nodes, best_order):
 
     G = nx.DiGraph()
 
@@ -24,6 +24,15 @@ def create_cit_map(nodes, edges, years):
     min_year = min(years)
     time = max_year - min_year
     xs = tuple([ -1 + 2 * (year - min_year)/time for year in years])
+
+    ys_initial = tuple(range(-1, 1, 1/len(nodes)))
+    y_map = {}
+
+    for author_list, y in zip(best_order, ys_initial):
+        y_map[author_list] = y
+
+    ys = [y_map[authors_and_nodes[node]] for node in nodes]
+
     for name, x, y in zip(nodes, xs, ys):
         graph_renderer.layout_provider.graph_layout[name] = (x, y)
 
