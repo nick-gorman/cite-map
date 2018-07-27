@@ -22,8 +22,21 @@ defs = {'(Hesamzadeh et al., 2014)':
         ' dispatch in the Australian National Electricity Market. Energy Policy 59, 120–132.',
         '(Göransson and Johnsson, 2009)':
         'Göransson, L., and Johnsson, F. (2009). Dispatch modeling of a regional power generation system – Integrating '
-        'wind power. Renewable Energy 34, 1040–1049.'
-        }
+        'wind power. Renewable Energy 34, 1040–1049.',
+        '(Riesz et al.)':
+        'Riesz, J.J., Shiao, F.-S., Gilmore, J.B., Yeowart, D., Turley, A., and Rose, I.A. Frequency Control Ancillary '
+        'Service Requirements with Wind Generation - Australian Projections. 6.',
+        '(Maisano et al.)':
+        'Maisano, J., Radchik, A., and Skryabin, I. A method of forecasting wholesale electricity market prices. 20.',
+        '(Riesz et al.)':
+        'Riesz, J.J., Gilmore, J.B., Buchanan, M., Vanderwaal, B., and Rose, I.A. Impacts of Electricity Markets on '
+        'Solar Revenues – An Australian Case Study. 6.',
+        '(Wagner et al., 2014)':
+        'Wagner, L., Molyneaux, L., and Foster, J. (2014). The magnitude of the impact of a shift from coal to gas '
+        'under a Carbon Price. Energy Policy 66, 280–291.',
+        '(Memisevic et al.)':
+        'Memisevic, R., Choudhury, S., Sanderson, P., and Wong, W. Integrated power scheme simulator for human-system '
+        'integration studies. 6.'}
 
 nodes = list(defs.keys())
 
