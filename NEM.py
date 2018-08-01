@@ -19,14 +19,14 @@ years = dict(zip(paper_data['Author and Year'], paper_data['Publication Year']))
 
 authors = list(paper_data['Author'])
 
-lists_of_authors =[]
-for author_list in authors:
-    lists_of_authors.append(author_list.lower())
-
-
-authors_and_nodes = dict(zip(paper_data['Author and Year'], lists_of_authors))
+authors_and_nodes = dict(zip(paper_data['Author and Year'], authors))
 
 author_groups = author_space.group_author_lists(authors)
+
+best_order = author_space.order_all_spaces(author_groups)
+
+best_order.sort(key=len)
+
 
 edges = [('Chand, Pramesh, 2006', 'Thatcher, Marcus J., 2007'),
          ('Vytelingum, Perukrishnen, 2009', 'Chand, Pramesh, 2006'),
@@ -35,6 +35,6 @@ edges = [('Chand, Pramesh, 2006', 'Thatcher, Marcus J., 2007'),
          ('Wagner, Liam, 2010', 'Exemplar, Energy, 2000'),
          ('Hindsberger, Magnus, 2011', 'Exemplar, Energy, 2000')]
 
-network_map.create_cit_map(nodes, edges, years, authors_and_nodes, 1)
+network_map.create_cit_map(nodes, edges, years, authors_and_nodes, best_order)
 
 

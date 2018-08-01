@@ -48,3 +48,36 @@ def matching_authors(list1, list2):
         if temp_distance_last > 80 and temp_distance_first > 80:
             match_count += 1
     return match_count
+
+
+def flatten_space(groups):
+    return [item for sublist in groups for item in sublist]
+
+
+def order_all_spaces(groups):
+    for group in groups:
+        group = order_space(group)
+    return groups
+
+
+def order_space(author_lists):
+    max_matches = 0
+    best_order = None
+    for potential_order in itertools.combinations(author_lists, len(author_lists)):
+        matches = adjacent_matches_in_order(potential_order)
+        if matches > max_matches:
+            max_matches = max_matches
+            best_order = potential_order
+    if best_order is None:
+        best_order = potential_order
+    return best_order
+
+
+def adjacent_matches_in_order(order):
+    matches = 0
+    for index, author_list in enumerate(order):
+        if index + 1 == len(order):
+            continue
+        else:
+            matches += matching_authors(author_list.split(';'), order[index + 1].split(';'))
+    return matches
