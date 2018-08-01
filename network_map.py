@@ -2,6 +2,7 @@ import networkx as nx
 from bokeh.io import show, output_file
 from bokeh.models import Plot, Range1d, MultiLine, Circle, ColumnDataSource, LabelSet
 from bokeh.models.graphs import from_networkx, NodesAndLinkedEdges, EdgesAndLinkedNodes
+import numpy as np
 
 
 def create_cit_map(nodes, edges, years, authors_and_nodes, best_order):
@@ -15,7 +16,7 @@ def create_cit_map(nodes, edges, years, authors_and_nodes, best_order):
     plot = Plot(plot_width=800, plot_height=800, x_range=Range1d(-1.5,1.5), y_range=Range1d(-1.5,1.5))
     plot.title.text = ""
 
-    graph_renderer = from_networkx(G, nx.spring_layout, scale=1)
+    graph_renderer = from_networkx(G, nx.spring_layout, scale=1.25)
 
     pos = graph_renderer.layout_provider.graph_layout
     xs,ys=zip(*pos.values())
@@ -25,7 +26,7 @@ def create_cit_map(nodes, edges, years, authors_and_nodes, best_order):
     time = max_year - min_year
     xs = tuple([ -1 + 2 * (year - min_year)/time for year in years])
 
-    ys_initial = tuple(range(-1, 1, 1/len(nodes)))
+    ys_initial = tuple(np.arange(-1.25, 1.25, 2.5/len(nodes)))
     y_map = {}
 
     for author_list, y in zip(best_order, ys_initial):
