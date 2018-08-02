@@ -17,7 +17,7 @@ nodes = list(paper_data['Author and Year'])
 
 years = dict(zip(paper_data['Author and Year'], paper_data['Publication Year']))
 
-authors = list(paper_data['Author'])
+authors = list(paper_data['Author'] + ';' + paper_data['Key'])
 
 authors_and_nodes = dict(zip(paper_data['Author and Year'], authors))
 
@@ -31,9 +31,19 @@ best_order.sort(key=len)
 edges = [('Chand, Pramesh, 2006', 'Thatcher, Marcus J., 2007'),
          ('Vytelingum, Perukrishnen, 2009', 'Chand, Pramesh, 2006'),
          ('Thatcher, Marcus J., 2007', 'GROZEV, George, 2005'),
-         ('Wagner, Liam, 2010', '(Graham et al., 2008)'),
+         ('Wagner, Liam, 2010', 'Graham, P., 2008'),
          ('Wagner, Liam, 2010', 'Exemplar, Energy, 2000'),
-         ('Hindsberger, Magnus, 2011', 'Exemplar, Energy, 2000')]
+         ('Wagner, Liam, 2010', 'Wagner, Liam, 2014'),
+         ('Hindsberger, Magnus, 2011', 'Exemplar, Energy, 2000'),
+         ('Wagner, Liam, 2014', 'Exemplar, Energy, 2000'),
+         ('GROZEV, George, 2008', 'Thatcher, Marcus J., 2007'),
+         ('GROZEV, George, 2008', 'GROZEV, George, 2005'),
+         ('Reedman, Luke J, 2012', 'Elliston, Ben, 2012'),
+         ('Samocha, Shira, 2017', 'Reedman, Luke J, 2012'),
+         ('Samocha, Shira, 2017', 'Riesz, Jennifer J, 2016'),
+         ('Samocha, Shira, 2017', 'Elliston, Ben, 2013'),
+         ('Elliston, Ben, 2013', 'Elliston, Ben, 2012'),
+         ('Elliston, Ben, 2013', 'MacGill, Iain, 2010')]
 
 network_map.create_cit_map(nodes, edges, years, authors_and_nodes, best_order)
 

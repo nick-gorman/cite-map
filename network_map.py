@@ -2,6 +2,7 @@ import networkx as nx
 from bokeh.io import show, output_file
 from bokeh.models import Plot, Range1d, MultiLine, Circle, ColumnDataSource, LabelSet, Span
 from bokeh.models.graphs import from_networkx, NodesAndLinkedEdges, EdgesAndLinkedNodes
+from bokeh import colors
 import numpy as np
 import author_space
 
@@ -39,24 +40,24 @@ def create_cit_map(nodes, edges, years, authors_and_nodes, best_order):
     for name, x, y in zip(nodes, xs, ys):
         graph_renderer.layout_provider.graph_layout[name] = (x, y)
 
-    graph_renderer.node_renderer.glyph = Circle(size=15)
-    graph_renderer.node_renderer.selection_glyph = Circle(size=15)
-    graph_renderer.node_renderer.hover_glyph = Circle(size=15)
+    graph_renderer.node_renderer.glyph = Circle(size=5)
 
-    graph_renderer.edge_renderer.glyph = MultiLine(line_color="#CCCCCC", line_alpha=0.8, line_width=5)
-    graph_renderer.edge_renderer.selection_glyph = MultiLine(line_width=5)
-    graph_renderer.edge_renderer.hover_glyph = MultiLine(line_width=5)
+    graph_renderer.edge_renderer.glyph = MultiLine(line_color=colors.named.cornflowerblue, line_alpha=0.8, line_width=2)
 
     graph_renderer.selection_policy = NodesAndLinkedEdges()
     graph_renderer.inspection_policy = EdgesAndLinkedNodes()
 
     # Vertical line
     last_pos = -1.25
-    for group in best_order:
+    for index, group in enumerate(best_order):
         y_position = last_pos + len(group) * 2.5 / len(nodes)
         last_pos = y_position
         y_position = y_position - 0.5 * (2.5 / len(nodes))
-        if len(group) > 1:
+        if index < len(best_order) - 1:
+            if len(best_order[index + 1]) > 1:
+                vline = Span(location=y_position, dimension='width', line_color='red', line_width=1, line_dash='dashed')
+                plot.renderers.extend([vline])
+        else:
             vline = Span(location=y_position, dimension='width', line_color='red', line_width=1, line_dash='dashed')
             plot.renderers.extend([vline])
 
@@ -64,7 +65,7 @@ def create_cit_map(nodes, edges, years, authors_and_nodes, best_order):
 
 
     source = ColumnDataSource({'x':xs,'y':ys,'names': nodes})
-    labels = LabelSet(x='x', y='y', text='names', source=source, level='glyph', x_offset=-50, y_offset=5)
+    labels = LabelSet(x='x', y='y', text='names', text_font_size='8pt', source=source, level='glyph', x_offset=-50, y_offset=5)
 
     plot.renderers.append(labels)
 
